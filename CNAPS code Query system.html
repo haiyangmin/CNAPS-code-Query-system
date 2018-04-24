@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>现代化支付系统银行行号查询</title>
+<meta name="keywords" content="联行号,开户联行号,联行号查询,开户行查询,联行号查询网址,联行号是什么,银行联行号,电子联行号,开户行联行号,银行联行号在线查询,怎样查询银行联行号,工商银行联行号查询,建设银行联行号查询,中国银行联行号查询,招商银行联行号查询,中国农业银行联行号查询,银行联行号查询系统,银行联行号查询网站" />
+<meta name="description" content="银行联行号就是一个地区银行的唯一识别标志。用于人民银行所组织的大额支付系统\\小额支付系统\\城市商业银行银行汇票系统\\全国支票影像系统（含一些城市的同城票据自动清分系统）等跨区域支付结算业务。由12位组成：3位银行代码+4位城市代码+4位银行编号+1位校验位。" />
+<style>
+body { color: #4B4B4B;font: 0.8em "Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体"; }
+#top{margin-bottom:20px;}
+#top a{color:#00b98d;text-decoration: none;}
+#bankinfo,#main{ width:100%;};
+</style>
+</head>
+
+<body ng-app="myApp" ng-controller="BankInfoController as BankInfo">
+<div id="main">
+<div id="top" >
+<p>您好，欢迎使用银行行号查询系统！</p>
+</div>
+<hr />
+<form name="FbankcodeForm">
+<label>请选择银行：
+<select id="Bank" name="Bank"  ng-model="BankInfo.bankName">
+<option ng-repeat="c in BankInfo.bank">{{c}}</option>
+</select>
+</label>
+<label>请选择省份：
+<select id="Province" name="Province" ng-model="BankInfo.ProvinceName">
+<option ng-repeat="d in BankInfo.Province">{{d}}</option>
+</select>
+</label>
+<label>请选择城市：
+<select id="City" name="City">
+<option value="">--选择城市--</option>
+</select>
+</label>
+<label>关键字(非必输项)：
+<input id="keyword" name="keyword" type="text" value="" />
+</label>
+<input id="show" type="button" onclick="el();" value="行号查询">
+</form>
+<br />
+</div>
+
+<!-- Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+
+
+<script>
+angular.module('myApp', [])
+.controller('BankInfoController',BankInfoController);
+
+BankInfoController.$inject =[$scope];
+function BankInfoController($scope) {
+   var vm = this;
+  vm.bankName= '--选择银行--';
+  vm.bank= ['--选择银行--', '中国人民银行', '中国工商银行','中国农业银行','中国银行','中国建设银行','中国进出口银行','中国农业发展银行','交通银行','中信银行',
+'光大银行','华夏银行','中国民生银行','广发银行','招商银行','兴业银行','浦发银行','上海农商银行','恒丰银行','渤海银行','徽商银行','重庆三峡银行','上海银行','邮政储蓄银行','汇丰银行','东亚银行','其他'];
+  vm.ProvinceName='--请选择--';
+  vm.Province= ['--请选择--', '北京市', '天津市','河北省','山西省','内蒙古自治区','辽宁省','吉林省','黑龙江省','上海市','江苏省','浙江省','安徽省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西壮族自治区','海南省','重庆市','四川省','贵州省','云南省','西藏自治区','陕西省','甘肃省','青海省','宁夏回族自治区','新疆维吾尔自治区','台湾省','香港特别行政区','澳门特别行政区','海外'];
+
+}
+
+</script>
+</body>
+</html>
+
