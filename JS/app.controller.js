@@ -1,4 +1,4 @@
-angular.module('myApp', [])
+angular.module('myApp')
 .controller('BankInfoController',BankInfoController);
 function BankInfoController() {
    var vm = this;
