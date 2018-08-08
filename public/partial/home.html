@@ -1,0 +1,196 @@
+<!-- header -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">超级查询</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">联行号查询<span class="sr-only">(current)</span></a></li>
+         <li class="dropdown">
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown">公司查询<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+       <li><a href="#">国外公司查询</a></li>
+       <li><a href="#">国内公司查询</a></li>
+       </ul>
+            </li>
+<li class="dropdown">
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown">快递查询<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+       <li><a href="#">物流查询</a></li>
+       <li><a href="#">快递网点查询</a></li>
+       <li><a href="#">国际快递查询</a></li>
+       <li><a href="#">快递公司大全</a></li>
+       </ul>
+     </li>
+     <li class="dropdown">
+ <a href="#" class="dropdown-toggle" data-toggle="dropdown">小工具<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu">
+       <li><a href="#">车辆违章查询</a></li>
+       <li><a href="#">汇率查询</a></li>
+       <li><a href="#">车险计算器</a></li>
+       <li><a href="#">邮编查询</a></li>
+       </ul>
+       </li>
+       <li><a href="#">帮助中心</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.html">登录</a></li>
+      <li><a href="#">注册</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!-- header -->
+
+<!-- searchBox -->
+<div class="container">
+<div class="well">
+<p>欢迎使用银行联行号查询系统！</p>
+ <hr />
+ <form name="searchForm" class="form-inline" >
+ <fieldset>
+ <div class="form-group">
+<label class="sr-only">请选择银行：</label>
+<select ng-model="BankInfo.selectBank"  class="form-control" ng-options="bank for bank in BankInfo.bank">
+</select>
+</div>
+<div class="form-group">
+<label class="sr-only">请选择省份：</label>
+<select ng-model="BankInfo.selectProvince"  class="form-control" ng-options="province for province in BankInfo.province "  ng-change="BankInfo.showCity()">
+</select>
+</div>
+<div class="form-group">
+<label class="sr-only">请选择城市：</label>
+<select ng-model="BankInfo.selectCity"  class="form-control" ng-options="item for item in BankInfo.city">
+</select>
+</div>
+<div class="form-group">
+<label class="sr-only">关键字(非必输项)：</label>
+<input id="keyword" name="keyword" type="text"  ng-model="BankInfo.keywords" class="form-control" placeholder="输入关键字(非必输项)：" >
+</div>
+<div class="form-group">
+<input id="show" type="button" class="btn btn-default" ng-click="BankInfo.getData()" value="行号查询">
+</div>
+</fieldset>
+</form>
+<br />
+</div>
+</div>
+<!-- searchBox -->
+
+<!-- ResultTable -->
+<div class="container" >
+   <div id="bankinfo" ng-show="BankInfo.myValue"></div>
+   <div class="table-responsive" ng-show="BankInfo.table">
+      <div class="text-right">
+    <form class="form-inline">
+        <div class="form-group">
+            <label >搜索</label>
+            <input type="text" ng-model="BankInfo.search" class="form-control" placeholder="输入关键词">
+        </div>
+    </form>
+     </div>
+   <table id="myTable" class="table table-bordered" >
+   <thead>
+      <tr>
+       <th >序号</th>
+       <th ng-click="BankInfo.sort('Name')">开户行联行行号</th>
+       <th ng-click="BankInfo.sort('Country')">开户行名称</th>
+       <th ng-click="BankInfo.sort('City')">银行网点地址</th>
+       <th>银行网点电话</th>
+     </tr>
+     </thead>
+     <tbody>
+     <tr dir-paginate="x in BankInfo.myData|orderBy:BankInfo.sortKey:BankInfo.reverse|filter:BankInfo.search|itemsPerPage:BankInfo.pageSize">
+       <td>{{ $index + 1 }}</td>
+       <td>{{ x.CNAPS_Code }}</td>
+       <td>{{ x.Standard_Name }}</td>
+       <td></td>
+       <td></td>
+     </tr>
+     </tbody>
+   </table>
+    <div class="text-center">
+    <dir-pagination-controls
+       max-size="10"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+      </div>
+  </div>
+</div>
+<!-- ResultTable -->
+
+<div class="footer">
+<div class="container">
+<footer id="page-footer">
+    <div class="page-container">
+  <div class="footer-content clearfix">
+     <div class="footer-content-block desktop-only">
+   <h4>联行号查询</h4>
+   <ul>
+    <li><a href="#" title="银行联行号查询">银行联行号查询</a></li>
+<li><a href="#" title="银行网点查询">银行网点查询</a></li>
+<li><a href="#" title="帮助中心">帮助中心</a></li>
+<li></li>
+<li></li>
+   </ul>
+   <h4>公司查询</h4>
+   <ul>
+   <li><a href="#" title="国内公司查询">国内公司查询</a></li>
+   <li><a href="#" title="国外公司查询">国外公司查询</a></li>
+   </ul>
+     </div>
+     
+      <div class="footer-content-block desktop-only">
+   <h4>快递查询</h4>
+   <ul>
+    <li><a href="#" title="快递查询">快递查询</a></li>
+<li><a href="#" title="物流查询">物流查询</a></li>
+<li><a href="#" title="快递网点查询">快递网点查询</a></li>
+<li><a href="#" title="国际快递查询">国际快递查询</a></li>
+<li><a href="#" title="快递公司大全">快递公司大全</a></li>
+   </ul>
+     </div>
+     
+     <div class="footer-content-block desktop-only">
+   <h4>小工具</h4>
+   <ul>
+    <li><a href="#" title="汇率计算">汇率计算</a></li>
+<li><a href="#" title="车辆违章查询">车辆违章查询</a></li>
+<li><a href="#" title="车险计算器">车险计算器</a></li>
+<li><a href="#" title="邮编查询">邮编查询</a></li>
+   </ul>
+     </div>
+           
+           
+     <div class="footer-content-block">
+   <h4>联系我们</h4>
+   <p>E-mail: wangjun1yang@gmail.com</p>
+     </div>
+  </div>
+  <div class="footer-credit clearfix ">
+     <h5>www.chaojichaxun.com 版权所有</h5>
+  </div>     
+    </div>
+ </footer>
+</div>
+</div>
+<script>
+$('ul.nav li.dropdown').hover(function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+}, function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+});
+</script>
+  
