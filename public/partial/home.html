@@ -9,13 +9,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">超级查询</a>
+      <a class="navbar-brand" href="#!/">超级查询</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">联行号查询<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="#!/">联行号查询<span class="sr-only">(current)</span></a></li>
          <li class="dropdown">
  <a href="#" class="dropdown-toggle" data-toggle="dropdown">公司查询<b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu">
@@ -42,10 +42,6 @@
        </ul>
        </li>
        <li><a href="#">帮助中心</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.html">登录</a></li>
-      <li><a href="#">注册</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -79,7 +75,7 @@
 <input id="keyword" name="keyword" type="text"  ng-model="BankInfo.keywords" class="form-control" placeholder="输入关键字(非必输项)：" >
 </div>
 <div class="form-group">
-<input id="show" type="button" class="btn btn-default" ng-click="BankInfo.getData()" value="行号查询">
+<input id="show" type="button" class="btn btn-default" ng-click="BankInfo.getData()" value="行号查询" ng-init="BankInfo.load()">
 </div>
 </fieldset>
 </form>
