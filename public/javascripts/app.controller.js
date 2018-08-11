@@ -8,7 +8,7 @@ BankInfoController.$inject = ['$http'];
         vm.sortKey = keyname;   //set the sortKey to the param passed
         vm.reverse = !$scope.reverse; //if true make it false and vice versa
     };
-  vm.bank= ['--选择银行--','中国工商银行','中国农业银行','中国银行','中国建设银行','中国进出口银行', '中国农业发展银行','交通银行','中信银行','光大银行','华夏银行','中国民生银行','广发银行','招商银行','兴业银行','浦发银行','上海农商银行','恒丰银行','渤海银行','徽商银行','邮政储蓄银行','汇丰银行','东亚银行','中国人民银行','国家金库','其他银行'];
+  vm.bank= ['--选择银行--','中国工商银行','中国农业银行','中国银行','中国建设银行','中国进出口银行', '中国农业发展银行','交通银行','中信银行','光大银行','华夏银行','中国民生银行','广发银行','招商银行','兴业银行','浦发银行','上海农商银行','恒丰银行','渤海银行','徽商银行','邮政储蓄银行','汇丰银行','东亚银行','中国人民银行','国家金库','其他'];
   vm.selectBank= vm.bank[0];
   vm.province= ['--请选择--','北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','广西','海南','重庆','四川','贵州','云南','西藏','陕西','甘肃','青海','宁夏','新疆','台湾','香港','澳门','海外'];
   vm.selectProvince= vm.province[0];
@@ -175,25 +175,47 @@ vm.getData= function (){
     }
  vm.myValue = true; 
  vm.table = false;
- alert(vm.selectBank);
- alert(vm.selectProvince);
- alert(vm.selectCity);
+ //alert(vm.selectBank);
+ //alert(vm.selectProvince);
+ //alert(vm.selectCity);
+ //alert("/users/bankcode/provinces/" + vm.selectProvince + "/"+ "city/" + vm.selectCity + "/"+ "bank/" + vm.selectBank);
  document.getElementById("bankinfo").innerHTML="<p>请稍后，数据查询中……</p>";
- $http({
-    url: "http://localhost:3000/users/bankcode/provinces/上海/city/上海/bank/其他",
-    method: "get"
-})
+ $http.get("/users/bankcode/provinces/" + vm.selectProvince + "/"+ "city/" + vm.selectCity + "/"+ "bank/" + vm.selectBank
+   )
 .then(function mySuccess(response) {
-    alert(typeof response.data);
-    alert (response.status);
-    alert (response.statusText);
+    //alert(typeof response.data);
+    //alert (response.status);
+   // alert (response.statusText);
    vm.myData = response.data ;
-   alert(vm.myData.length);
-   vm.table = true;
-   vm.myValue = false;
+   //alert(vm.myData.length);
+   if(vm.myData.length == 0){
+    vm.table = false;
+    vm.myValue = true;
+    document.getElementById("bankinfo").innerHTML="<p>无结果，请重新查询……</p>";
+   }
+  else { vm.table = true;
+   vm.myValue = false;}
 }, 
 function myError(response) { 
     vm.myData = response.statusText;
 });
    } 
+
+   vm.load= function (){
+     $http.get("/users/bankcode/provinces/北京/city/北京/bank/中国银行"
+       )
+       .then(function mySuccess(response) {
+        //alert(typeof response.data);
+        //alert (response.status);
+        //alert (response.statusText);
+          vm.myData = response.data ;
+         // alert(vm.myData.length);
+          vm.table = true;
+          vm.myValue = false;
+       }, 
+       function myError(response) { 
+           vm.myData = response.statusText;
+       });
+      } 
+  
 }
